@@ -26,31 +26,6 @@
                 radial-gradient(ellipse at center, #12121a 0%, #0a0a0f 100%);
         }
         
-        /* Анимированные частицы */
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(233, 69, 96, 0.6);
-            border-radius: 50%;
-            animation: float 15s infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
-        
         .container {
             position: relative;
             z-index: 1;
@@ -131,21 +106,6 @@
             100% { background-position: 200% 50%; }
         }
         
-        .progress-glow {
-            position: absolute;
-            top: -2px;
-            left: 0;
-            height: 8px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, rgba(233, 69, 96, 0.5), transparent);
-            animation: glow-move 2s ease-in-out infinite;
-        }
-        
-        @keyframes glow-move {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-        }
-        
         .status {
             margin-top: 15px;
             font-size: 13px;
@@ -157,7 +117,7 @@
             white-space: nowrap;
         }
         
-        /* Карточка с картой */
+        /* Карточка с картой - слева внизу */
         .map-card {
             position: fixed;
             bottom: 30px;
@@ -201,21 +161,21 @@
             font-weight: 500;
         }
         
-        /* Инфо справа */
+        /* Режим - ВВЕРХУ СПРАВА */
         .info-card {
             position: fixed;
-            bottom: 30px;
+            top: 30px;
             right: 30px;
             background: rgba(20, 20, 30, 0.8);
             border: 1px solid rgba(100, 100, 120, 0.2);
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 12px 18px;
             backdrop-filter: blur(10px);
             text-align: right;
         }
         
         .info-card .label {
-            font-size: 11px;
+            font-size: 10px;
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -223,22 +183,23 @@
         
         .info-card .value {
             font-size: 14px;
-            color: #888;
-            margin-top: 3px;
+            color: #e94560;
+            font-weight: 500;
+            margin-top: 2px;
         }
         
-        /* Советы */
+        /* Советы - слева вверху */
         .tips {
             position: fixed;
             top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 30px;
             background: rgba(20, 20, 30, 0.6);
             border-radius: 8px;
-            padding: 10px 20px;
+            padding: 10px 16px;
             font-size: 13px;
             color: #666;
             backdrop-filter: blur(10px);
+            max-width: 350px;
         }
         
         .tips span {
@@ -249,10 +210,14 @@
 <body>
     <div class="bg"></div>
     
-    <div class="particles" id="particles"></div>
-    
     <div class="tips">
-        💡 Совет: <span id="tip">Собирай улики, чтобы найти убийцу!</span>
+        💡 <span id="tip">Собирай улики, чтобы найти убийцу!</span>
+    </div>
+    
+    <!-- Режим теперь вверху справа -->
+    <div class="info-card">
+        <div class="label">Режим</div>
+        <div class="value">Murder</div>
     </div>
     
     <div class="container">
@@ -279,7 +244,6 @@
         <div class="progress-wrapper">
             <div class="progress-container">
                 <div class="progress-bar" id="progress"></div>
-                <div class="progress-glow"></div>
             </div>
             <div class="status" id="status">Подключение к серверу...</div>
         </div>
@@ -292,33 +256,15 @@
             <div class="map-name" id="mapname">Загрузка...</div>
         </div>
     </div>
-    
-    <div class="info-card">
-        <div class="label">Режим</div>
-        <div class="value">Murder</div>
-    </div>
 
     <script>
-        // Создаём частицы
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-        
         // Советы
         const tips = [
             "Собирай улики, чтобы найти убийцу!",
             "Не доверяй никому...",
             "Убийца может быть рядом!",
             "Пистолет появляется после сбора 5 улик",
-            "Следи за поведением других игроков",
-            "Убийца оставляет следы крови",
-            "Работай в команде, чтобы выжить"
+            "Следи за поведением других игроков"
         ];
         
         let tipIndex = 0;
@@ -353,7 +299,7 @@
             document.getElementById('status').textContent = status;
         }
         
-        // Получаем карту из URL параметров
+        // Получаем карту из URL
         const params = new URLSearchParams(window.location.search);
         const mapFromUrl = params.get('mapname');
         if (mapFromUrl) {
