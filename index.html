@@ -80,6 +80,7 @@
             to   { transform: translate(2%, -2%); }
         }
 
+        /* Нож — только справа, без текста поверх */
         .blade-wrap {
             position: absolute;
             z-index: 2;
@@ -103,10 +104,11 @@
         }
 
         @keyframes bladeFloat {
-            0%, 100% { transform: translateY(0) rotate(12deg); }
-            50%      { transform: translateY(-12px) rotate(10deg); }
+            0%, 100% { transform: translateY(0) rotate(-18deg); }
+            50%      { transform: translateY(-10px) rotate(-15deg); }
         }
 
+        /* Весь текст — слева, отдельно от ножа */
         .copy {
             position: absolute;
             z-index: 5;
@@ -279,7 +281,9 @@
                 width: 46vw;
                 opacity: 0.55;
             }
-            .copy { width: min(520px, 70vw); }
+            .copy {
+                width: min(520px, 70vw);
+            }
             .footer {
                 flex-direction: column;
                 align-items: stretch;
@@ -295,60 +299,105 @@
         <div class="atmosphere"></div>
         <div class="mist"></div>
 
+        <!-- Нож: рукоять сверху, клинок вниз, цельный силуэт -->
         <div class="blade-wrap" aria-hidden="true">
-            <svg class="blade" viewBox="0 0 180 520" xmlns="http://www.w3.org/2000/svg">
+            <svg class="blade" viewBox="0 0 200 560" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <linearGradient id="bladeFace" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#5a5552"/>
-                        <stop offset="18%" stop-color="#d8d0c8"/>
-                        <stop offset="42%" stop-color="#f4efe8"/>
-                        <stop offset="58%" stop-color="#b8b0a6"/>
-                        <stop offset="78%" stop-color="#7a7470"/>
-                        <stop offset="100%" stop-color="#3e3a38"/>
+                    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4a4644"/>
+                        <stop offset="22%" stop-color="#cfc7be"/>
+                        <stop offset="48%" stop-color="#f7f2eb"/>
+                        <stop offset="70%" stop-color="#9e968e"/>
+                        <stop offset="100%" stop-color="#3a3634"/>
                     </linearGradient>
-                    <linearGradient id="bladeEdge" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#fff8f0" stop-opacity="0.85"/>
-                        <stop offset="35%" stop-color="#fff8f0" stop-opacity="0.25"/>
-                        <stop offset="100%" stop-color="#fff8f0" stop-opacity="0"/>
+                    <linearGradient id="steelEdge" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
                     </linearGradient>
-                    <linearGradient id="bloodDrop" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#d42a3d"/>
-                        <stop offset="100%" stop-color="#6e1420"/>
+                    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#1c110c"/>
+                        <stop offset="35%" stop-color="#6a4228"/>
+                        <stop offset="65%" stop-color="#4a2e1c"/>
+                        <stop offset="100%" stop-color="#160e0a"/>
                     </linearGradient>
-                    <linearGradient id="handleWood" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#2a1810"/>
-                        <stop offset="40%" stop-color="#5c3a24"/>
-                        <stop offset="70%" stop-color="#3d2618"/>
-                        <stop offset="100%" stop-color="#1a100c"/>
+                    <linearGradient id="bolsterGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#2a2422"/>
+                        <stop offset="40%" stop-color="#5a524c"/>
+                        <stop offset="100%" stop-color="#1a1614"/>
                     </linearGradient>
-                    <filter id="softGlow" x="-20%" y="-10%" width="140%" height="120%">
-                        <feGaussianBlur stdDeviation="2.5" result="b"/>
-                        <feMerge>
-                            <feMergeNode in="b"/>
-                            <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
+                    <linearGradient id="blood" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#e03346"/>
+                        <stop offset="100%" stop-color="#6a101c"/>
+                    </linearGradient>
+                    <filter id="knifeShadow" x="-30%" y="-10%" width="160%" height="120%">
+                        <feDropShadow dx="6" dy="14" stdDeviation="10" flood-color="#000" flood-opacity="0.55"/>
                     </filter>
                 </defs>
 
-                <path d="M88 28 C92 28 98 36 102 52 L118 300 C120 318 116 340 108 365 L96 410 C94 418 90 430 88 442 C86 430 82 418 80 410 L68 365 C60 340 56 318 58 300 L74 52 C78 36 84 28 88 28 Z" fill="url(#bladeFace)" filter="url(#softGlow)"/>
-                <path d="M96 55 L108 300 C109 315 106 335 100 355 L92 400" fill="none" stroke="url(#bladeEdge)" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
-                <path d="M88 70 L88 330" fill="none" stroke="#2a2624" stroke-width="3.5" stroke-linecap="round" opacity="0.28"/>
-                <path d="M88 70 L88 320" fill="none" stroke="#fff8f0" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
-                <path d="M88 448 C94 456 94 468 88 478 C82 468 82 456 88 448 Z" fill="url(#bloodDrop)" opacity="0.9"/>
-                <ellipse cx="88" cy="486" rx="5" ry="3" fill="#6e1420" opacity="0.45"/>
-                <rect x="54" y="298" width="68" height="16" rx="3" fill="#1a1412"/>
-                <rect x="56" y="300" width="64" height="5" rx="1" fill="#d4a574" opacity="0.35"/>
-                <rect x="58" y="308" width="60" height="3" fill="#3a2a22"/>
-                <path d="M72 314 L104 314 L108 455 C108 468 100 478 88 478 C76 478 68 468 68 455 Z" fill="url(#handleWood)"/>
-                <path d="M78 330 L98 330 M76 360 L100 360 M76 390 L100 390 M78 420 L98 420" fill="none" stroke="#1a100c" stroke-width="1.2" opacity="0.55"/>
-                <circle cx="88" cy="348" r="4.5" fill="#2a1810"/>
-                <circle cx="88" cy="348" r="2.6" fill="#d4a574"/>
-                <circle cx="88" cy="388" r="4.5" fill="#2a1810"/>
-                <circle cx="88" cy="388" r="2.6" fill="#d4a574"/>
-                <circle cx="88" cy="428" r="4.5" fill="#2a1810"/>
-                <circle cx="88" cy="428" r="2.6" fill="#d4a574"/>
-                <ellipse cx="88" cy="478" rx="14" ry="8" fill="#1a1412"/>
-                <ellipse cx="88" cy="476" rx="9" ry="4" fill="#d4a574" opacity="0.4"/>
+                <g filter="url(#knifeShadow)">
+                    <!-- Навершие -->
+                    <ellipse cx="100" cy="36" rx="18" ry="10" fill="#1a1412"/>
+                    <ellipse cx="100" cy="34" rx="11" ry="5" fill="#d4a574" opacity="0.35"/>
+
+                    <!-- Рукоять (сверху) -->
+                    <path d="M84 40
+                             C84 40 82 48 82 56
+                             L80 150
+                             L120 150
+                             L118 56
+                             C118 48 116 40 116 40 Z"
+                          fill="url(#wood)"/>
+                    <path d="M88 55 L112 55 M87 85 L113 85 M86 115 L114 115"
+                          fill="none" stroke="#120c08" stroke-width="1.4" opacity="0.5"/>
+                    <circle cx="100" cy="70" r="4.2" fill="#1a100c"/>
+                    <circle cx="100" cy="70" r="2.4" fill="#d4a574"/>
+                    <circle cx="100" cy="100" r="4.2" fill="#1a100c"/>
+                    <circle cx="100" cy="100" r="2.4" fill="#d4a574"/>
+                    <circle cx="100" cy="130" r="4.2" fill="#1a100c"/>
+                    <circle cx="100" cy="130" r="2.4" fill="#d4a574"/>
+
+                    <!-- Больстер / гарда — стык рукоять→клинок -->
+                    <path d="M70 148
+                             L130 148
+                             L134 168
+                             L128 178
+                             L72 178
+                             L66 168 Z"
+                          fill="url(#bolsterGrad)"/>
+                    <path d="M72 152 L128 152" stroke="#d4a574" stroke-width="1.5" opacity="0.45"/>
+                    <path d="M74 172 L126 172" stroke="#000" stroke-width="1" opacity="0.35"/>
+
+                    <!-- Клинок (цельный, остриё вниз) -->
+                    <path d="M78 176
+                             L122 176
+                             L128 210
+                             L124 420
+                             C122 460 114 500 100 538
+                             C86 500 78 460 76 420
+                             L72 210 Z"
+                          fill="url(#steel)"/>
+
+                    <!-- Обух (толстая сторона) -->
+                    <path d="M122 178 L126 212 L122 418"
+                          fill="none" stroke="#2a2624" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+
+                    <!-- Блик по клинку -->
+                    <path d="M108 190 L116 250 L114 400 L108 470"
+                          fill="none" stroke="url(#steelEdge)" stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- Долик -->
+                    <path d="M100 195 L100 430"
+                          fill="none" stroke="#1a1816" stroke-width="4" stroke-linecap="round" opacity="0.22"/>
+                    <path d="M100 195 L100 420"
+                          fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+
+                    <!-- Капля крови на острие -->
+                    <path d="M100 532
+                             C108 542 108 556 100 568
+                             C92 556 92 542 100 532 Z"
+                          fill="url(#blood)"/>
+                    <ellipse cx="100" cy="572" rx="6" ry="3" fill="#5a1018" opacity="0.4"/>
+                </g>
             </svg>
         </div>
 
@@ -356,8 +405,11 @@
             <div class="eyebrow">Никому нельзя верить</div>
             <h1 class="brand">Murder <em>Mystery</em></h1>
             <p class="tagline">Один нож. Один пистолет. <strong>Двадцать четыре подозреваемых.</strong></p>
+
             <div class="load">
-                <div class="load-track"><div class="load-bar" id="progress"></div></div>
+                <div class="load-track">
+                    <div class="load-bar" id="progress"></div>
+                </div>
                 <div class="status" id="status">Готовим раунд…</div>
             </div>
         </div>
@@ -403,19 +455,28 @@
         }, 6500);
 
         let filesTotal = 0;
-        function SetFilesTotal(total) { filesTotal = total || 0; }
+
+        function SetFilesTotal(total) {
+            filesTotal = total || 0;
+        }
+
         function SetFilesNeeded(needed) {
             const loaded = Math.max(0, filesTotal - (needed || 0));
             const percent = filesTotal > 0 ? (loaded / filesTotal) * 100 : 0;
             document.getElementById('progress').style.width = percent + '%';
         }
+
         function DownloadingFile(file) {
             document.getElementById('status').textContent = 'Загрузка: ' + file;
         }
+
         function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
             document.getElementById('mapname').textContent = mapname || 'Неизвестная карта';
-            if (gamemode) document.getElementById('gamemode').textContent = gamemode;
+            if (gamemode) {
+                document.getElementById('gamemode').textContent = gamemode;
+            }
         }
+
         function SetStatusChanged(status) {
             document.getElementById('status').textContent = status;
         }
