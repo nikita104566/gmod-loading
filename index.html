@@ -114,15 +114,13 @@
         }
 
         .blade .tip-bead {
-            transform-origin: center;
-            transform-box: fill-box;
+            /* лёгкое пульсирование без смещения позиции */
             animation: beadPulse 2.4s ease-in-out infinite;
         }
 
         @keyframes beadPulse {
-            0%, 100% { transform: scale(0.92); opacity: 0.95; }
-            40% { transform: scale(1.12); opacity: 1; }
-            55% { transform: scale(0.88); opacity: 0.9; }
+            0%, 100% { opacity: 0.92; }
+            45% { opacity: 1; }
         }
 
         .copy {
@@ -328,7 +326,7 @@
         <div class="mist"></div>
 
         <div class="blade-wrap" aria-hidden="true">
-            <svg class="blade" viewBox="0 0 200 660" xmlns="http://www.w3.org/2000/svg">
+            <svg class="blade" viewBox="0 0 200 560" xmlns="http://www.w3.org/2000/svg" overflow="visible">
                 <defs>
                     <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stop-color="#4a4644"/>
@@ -385,24 +383,24 @@
                     <path d="M100 195 L100 420" fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
                 </g>
 
-                <!-- Кровь на самом острие; капли падают по оси клинка (SMIL) -->
-                <g class="blood-tip" transform="translate(100, 540)">
-                    <path class="tip-bead" d="M0 -4 C6.5 3 6.5 14 0 22 C-6.5 14 -6.5 3 0 -4 Z" fill="url(#blood)"/>
+                <!-- Кровь на самом острие (точка клинка ≈ 100,538) -->
+                <g class="blood-tip" transform="translate(100, 538)">
+                    <path class="tip-bead" d="M0 0 C5.5 6 5.5 15 0 22 C-5.5 15 -5.5 6 0 0 Z" fill="url(#blood)"/>
 
                     <g opacity="0">
-                        <ellipse cx="0" cy="20" rx="4.2" ry="5.6" fill="#d42a3d"/>
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.5s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 6; 0 18; 0 100" keyTimes="0;0.15;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+                        <ellipse cx="0" cy="20" rx="4" ry="5.4" fill="#d42a3d"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.5s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 4; 0 14; 0 92" keyTimes="0;0.12;0.28;1" dur="2.5s" repeatCount="indefinite"/>
                     </g>
                     <g opacity="0">
-                        <ellipse cx="0" cy="20" rx="3.4" ry="4.6" fill="#c41f35"/>
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.9s" begin="0.85s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 5; 0 16; 0 105" keyTimes="0;0.15;0.3;1" dur="2.9s" begin="0.85s" repeatCount="indefinite"/>
+                        <ellipse cx="0" cy="20" rx="3.2" ry="4.4" fill="#c41f35"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 4; 0 14; 0 98" keyTimes="0;0.12;0.28;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
                     </g>
                     <g opacity="0">
-                        <ellipse cx="0" cy="20" rx="3" ry="4.2" fill="#e03346"/>
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.6s" begin="1.55s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 5; 0 15; 0 95" keyTimes="0;0.15;0.3;1" dur="2.6s" begin="1.55s" repeatCount="indefinite"/>
+                        <ellipse cx="0" cy="20" rx="2.8" ry="4" fill="#e03346"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 3; 0 12; 0 88" keyTimes="0;0.12;0.28;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
                     </g>
                 </g>
             </svg>
