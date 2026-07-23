@@ -112,94 +112,50 @@
             50% { transform: translateY(-10px) rotate(-15deg); }
         }
 
-        /* Капли крови — слой поверх SVG, у острия */
-        .drip-layer {
-            position: absolute;
-            z-index: 3;
-            width: 40px;
-            height: 140px;
-            /* остриё ножа при rotate ~-18deg, низ-центр клинка */
-            right: calc(50% - 28px);
-            bottom: 2%;
-            transform: rotate(-18deg);
-            pointer-events: none;
-        }
-
-        .drip {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            width: 11px;
-            height: 15px;
-            margin-left: -5.5px;
-            border-radius: 45% 45% 55% 55% / 40% 40% 60% 60%;
-            background: radial-gradient(circle at 35% 28%, #ff8a96, #d42a3d 42%, #6a101c 100%);
-            box-shadow: 0 0 10px rgba(212, 42, 61, 0.7), 0 4px 12px rgba(90, 10, 20, 0.45);
-            opacity: 0;
-            animation: dripFall 2.4s cubic-bezier(0.4, 0.0, 0.6, 1) infinite;
-            will-change: transform, opacity;
-        }
-
-        .drip::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: -7px;
-            width: 6px;
-            height: 9px;
-            margin-left: -3px;
-            border-radius: 50%;
-            background: #e03346;
-            opacity: 0.9;
-        }
-
-        .drip.d2 { animation-delay: 0.75s; animation-duration: 2.9s; left: 40%; }
-        .drip.d3 { animation-delay: 1.45s; animation-duration: 2.55s; left: 60%; width: 8px; height: 12px; }
-
-        @keyframes dripFall {
-            0% {
-                transform: translateY(0) scaleY(0.5) scaleX(0.8);
-                opacity: 0;
-            }
-            8% {
-                opacity: 1;
-                transform: translateY(0) scaleY(1) scaleX(1);
-            }
-            22% {
-                transform: translateY(6px) scaleY(1.45) scaleX(0.88);
-                opacity: 1;
-            }
-            30% {
-                /* отрыв капли */
-                transform: translateY(18px) scaleY(0.9) scaleX(1.05);
-                opacity: 1;
-            }
-            85% {
-                opacity: 0.85;
-            }
-            100% {
-                transform: translateY(130px) scaleY(0.65) scaleX(0.7);
-                opacity: 0;
-            }
-        }
-
-        .tip-bead {
-            position: absolute;
-            left: 50%;
-            top: -4px;
-            width: 13px;
-            height: 16px;
-            margin-left: -6.5px;
-            border-radius: 50% 50% 55% 55% / 38% 38% 62% 62%;
-            background: radial-gradient(circle at 30% 25%, #ff7a88, #c41f35 55%, #5a1018);
-            box-shadow: 0 2px 10px rgba(180, 20, 40, 0.75);
+        /* Капли внутри SVG — якорь на острие (viewBox 100, ~545) */
+        .blade .tip-bead {
+            transform-origin: 100px 540px;
+            transform-box: fill-box;
             animation: beadPulse 2.4s ease-in-out infinite;
         }
 
+        .blade .tip-drop {
+            transform-box: fill-box;
+            transform-origin: center top;
+            opacity: 0;
+            animation: tipDrip 2.5s cubic-bezier(0.35, 0, 0.55, 1) infinite;
+        }
+
+        .blade .tip-drop.d2 { animation-delay: 0.85s; animation-duration: 2.9s; }
+        .blade .tip-drop.d3 { animation-delay: 1.6s; animation-duration: 2.6s; }
+
+        @keyframes tipDrip {
+            0% {
+                transform: translate(0, 0) scale(0.45, 0.55);
+                opacity: 0;
+            }
+            8% {
+                transform: translate(0, 2px) scale(1, 1);
+                opacity: 1;
+            }
+            20% {
+                transform: translate(0, 8px) scale(0.95, 1.35);
+                opacity: 1;
+            }
+            28% {
+                transform: translate(0, 16px) scale(1.05, 0.9);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, 95px) scale(0.7, 0.65);
+                opacity: 0;
+            }
+        }
+
         @keyframes beadPulse {
-            0%, 100% { transform: scale(0.92); opacity: 0.9; }
-            40% { transform: scale(1.12); opacity: 1; }
-            55% { transform: scale(0.88); opacity: 0.85; }
+            0%, 100% { transform: scale(0.92); opacity: 0.95; }
+            40% { transform: scale(1.14); opacity: 1; }
+            55% { transform: scale(0.88); opacity: 0.9; }
         }
 
         .copy {
@@ -460,18 +416,16 @@
                     <path d="M108 190 L116 250 L114 400 L108 470" fill="none" stroke="url(#steelEdge)" stroke-width="3" stroke-linecap="round"/>
                     <path d="M100 195 L100 430" fill="none" stroke="#1a1816" stroke-width="4" stroke-linecap="round" opacity="0.22"/>
                     <path d="M100 195 L100 420" fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+                </g>
 
-                    <!-- Лужа / след на острие -->
-                    <path d="M100 528 C107 536 107 548 100 558 C93 548 93 536 100 528 Z" fill="url(#blood)" opacity="0.95"/>
+                <!-- Кровь строго на острие клинка (viewBox tip ≈ 100,538) -->
+                <g class="blood-tip" transform="translate(100, 538)">
+                    <path class="tip-bead" d="M0 -6 C7 2 7 14 0 22 C-7 14 -7 2 0 -6 Z" fill="url(#blood)"/>
+                    <ellipse class="tip-drop" cx="0" cy="18" rx="4.2" ry="5.5" fill="#d42a3d"/>
+                    <ellipse class="tip-drop d2" cx="0" cy="18" rx="3.4" ry="4.6" fill="#c41f35"/>
+                    <ellipse class="tip-drop d3" cx="0" cy="18" rx="3" ry="4.2" fill="#e03346"/>
                 </g>
             </svg>
-
-            <div class="drip-layer">
-                <div class="tip-bead"></div>
-                <div class="drip"></div>
-                <div class="drip d2"></div>
-                <div class="drip d3"></div>
-            </div>
         </div>
 
         <div class="copy">
