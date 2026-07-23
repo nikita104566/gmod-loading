@@ -129,50 +129,56 @@
             position: absolute;
             left: 50%;
             top: 0;
-            width: 9px;
-            height: 12px;
-            margin-left: -4.5px;
-            border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
-            background: radial-gradient(circle at 35% 30%, #ff6b7a, #d42a3d 45%, #6a101c 100%);
-            box-shadow: 0 0 6px rgba(212, 42, 61, 0.55);
+            width: 11px;
+            height: 15px;
+            margin-left: -5.5px;
+            border-radius: 45% 45% 55% 55% / 40% 40% 60% 60%;
+            background: radial-gradient(circle at 35% 28%, #ff8a96, #d42a3d 42%, #6a101c 100%);
+            box-shadow: 0 0 10px rgba(212, 42, 61, 0.7), 0 4px 12px rgba(90, 10, 20, 0.45);
             opacity: 0;
-            animation: dripFall 2.6s ease-in infinite;
+            animation: dripFall 2.4s cubic-bezier(0.4, 0.0, 0.6, 1) infinite;
+            will-change: transform, opacity;
         }
 
         .drip::after {
             content: "";
             position: absolute;
             left: 50%;
-            top: -6px;
-            width: 5px;
-            height: 8px;
-            margin-left: -2.5px;
+            top: -7px;
+            width: 6px;
+            height: 9px;
+            margin-left: -3px;
             border-radius: 50%;
             background: #e03346;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
-        .drip.d2 { animation-delay: 0.9s; animation-duration: 3.1s; left: 42%; }
-        .drip.d3 { animation-delay: 1.7s; animation-duration: 2.8s; left: 58%; width: 7px; height: 10px; }
+        .drip.d2 { animation-delay: 0.75s; animation-duration: 2.9s; left: 40%; }
+        .drip.d3 { animation-delay: 1.45s; animation-duration: 2.55s; left: 60%; width: 8px; height: 12px; }
 
         @keyframes dripFall {
             0% {
-                transform: translateY(0) scaleY(0.55) scaleX(0.85);
+                transform: translateY(0) scaleY(0.5) scaleX(0.8);
                 opacity: 0;
             }
-            12% {
+            8% {
                 opacity: 1;
-                transform: translateY(2px) scaleY(1) scaleX(1);
+                transform: translateY(0) scaleY(1) scaleX(1);
             }
-            28% {
-                transform: translateY(8px) scaleY(1.35) scaleX(0.9);
+            22% {
+                transform: translateY(6px) scaleY(1.45) scaleX(0.88);
                 opacity: 1;
             }
-            35% {
-                transform: translateY(14px) scaleY(0.95) scaleX(1);
+            30% {
+                /* отрыв капли */
+                transform: translateY(18px) scaleY(0.9) scaleX(1.05);
+                opacity: 1;
+            }
+            85% {
+                opacity: 0.85;
             }
             100% {
-                transform: translateY(118px) scaleY(0.7) scaleX(0.75);
+                transform: translateY(130px) scaleY(0.65) scaleX(0.7);
                 opacity: 0;
             }
         }
@@ -180,14 +186,14 @@
         .tip-bead {
             position: absolute;
             left: 50%;
-            top: -2px;
-            width: 11px;
-            height: 14px;
-            margin-left: -5.5px;
-            border-radius: 50% 50% 55% 55% / 40% 40% 60% 60%;
+            top: -4px;
+            width: 13px;
+            height: 16px;
+            margin-left: -6.5px;
+            border-radius: 50% 50% 55% 55% / 38% 38% 62% 62%;
             background: radial-gradient(circle at 30% 25%, #ff7a88, #c41f35 55%, #5a1018);
-            box-shadow: 0 2px 8px rgba(180, 20, 40, 0.6);
-            animation: beadPulse 2.6s ease-in-out infinite;
+            box-shadow: 0 2px 10px rgba(180, 20, 40, 0.75);
+            animation: beadPulse 2.4s ease-in-out infinite;
         }
 
         @keyframes beadPulse {
@@ -339,12 +345,12 @@
             z-index: 6;
             left: 0;
             right: var(--gmod-bar-w);
-            bottom: 0;
+            bottom: 12px;
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
             gap: 2.5rem;
-            padding: 1.2rem clamp(1.5rem, 5vw, 4.5rem) 1.4rem;
+            padding: 1.2rem clamp(1.5rem, 5vw, 4.5rem) 0.4rem;
             background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.45));
         }
 
