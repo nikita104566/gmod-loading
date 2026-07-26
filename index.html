@@ -260,19 +260,21 @@
 
         .tip-text.is-fading { opacity: 0; }
 
-        /* Только карта/режим слева — справа пусто под GMod-бар */
+        /* Только карта/режим слева — сразу под полоской */
         .footer {
             position: absolute;
             z-index: 6;
             left: 0;
             right: var(--gmod-bar-w);
-            bottom: 12px;
+            /* Полоска на (gmod-bar-h - 8px); блок сразу под ней */
+            bottom: calc(var(--gmod-bar-h) - 8px);
+            transform: translateY(0.45rem);
             display: flex;
             justify-content: flex-start;
-            align-items: flex-end;
+            align-items: flex-start;
             gap: 2.5rem;
-            padding: 1.2rem clamp(1.5rem, 5vw, 4.5rem) 0.4rem;
-            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.45));
+            padding: 0 clamp(1.5rem, 5vw, 4.5rem);
+            background: none;
         }
 
         .meta-pair { min-width: 0; }
@@ -282,7 +284,7 @@
             letter-spacing: 0.26em;
             text-transform: uppercase;
             color: rgba(212, 165, 116, 0.65);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.25rem;
         }
 
         .meta-value {
@@ -290,6 +292,7 @@
             font-size: 1.25rem;
             font-weight: 700;
             color: #f3ebe3;
+            line-height: 1.15;
         }
 
         .meta-value.mode { color: var(--blood-bright); }
@@ -383,24 +386,24 @@
                     <path d="M100 195 L100 420" fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
                 </g>
 
-                <!-- Кровь на самом острие (точка клинка ≈ 100,538) -->
+                <!-- Кровь на острие: капли вниз-влево (нож наклонён вправо) -->
                 <g class="blood-tip" transform="translate(100, 538)">
                     <path class="tip-bead" d="M0 0 C5.5 6 5.5 15 0 22 C-5.5 15 -5.5 6 0 0 Z" fill="url(#blood)"/>
 
                     <g opacity="0">
                         <ellipse cx="0" cy="20" rx="4" ry="5.4" fill="#d42a3d"/>
                         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.5s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 4; 0 14; 0 92" keyTimes="0;0.12;0.28;1" dur="2.5s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; -6 8; -22 36; -48 96" keyTimes="0;0.12;0.32;1" dur="2.5s" repeatCount="indefinite"/>
                     </g>
                     <g opacity="0">
                         <ellipse cx="0" cy="20" rx="3.2" ry="4.4" fill="#c41f35"/>
                         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 4; 0 14; 0 98" keyTimes="0;0.12;0.28;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; -5 7; -20 34; -52 102" keyTimes="0;0.12;0.32;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
                     </g>
                     <g opacity="0">
                         <ellipse cx="0" cy="20" rx="2.8" ry="4" fill="#e03346"/>
                         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 3; 0 12; 0 88" keyTimes="0;0.12;0.28;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; -4 6; -18 30; -44 90" keyTimes="0;0.12;0.32;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
                     </g>
                 </g>
             </svg>
