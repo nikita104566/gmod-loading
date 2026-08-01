@@ -389,25 +389,43 @@
                     <path d="M100 195 L100 420" fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
                 </g>
 
-                <!-- Кровь: капли вниз-влево; поворот ≈ atan2(dx,dy) вдоль траектории -->
+                <!-- Кровь: капли вниз-влево; ось капли вдоль траектории (острие сзади) -->
                 <g class="blood-tip" transform="translate(100, 538)">
                     <path class="tip-bead" d="M0 0 C5.5 6 5.5 15 0 22 C-5.5 15 -5.5 6 0 0 Z" fill="url(#blood)"/>
 
-                    <!-- rotate ~-27°: ось капли вдоль полёта (−x,+y), острие сзади -->
+                    <!--
+                      Траектория ≈ (−48, +96) → угол от +X ≈ 117°.
+                      Капля «смотрит» в +Y (90°) → rotate(27), чтобы +Y совпало с полётом.
+                    -->
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.5s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; -6 8; -22 36; -48 96" keyTimes="0;0.12;0.32;1" dur="2.5s" repeatCount="indefinite"/>
-                        <path transform="translate(0 14) rotate(-27)" d="M0 0 C3.8 4.2 3.8 10.5 0 15.5 C-3.8 10.5 -3.8 4.2 0 0 Z" fill="#d42a3d"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.5s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate"
+                            values="0,0; -6,8; -22,36; -48,96"
+                            keyTimes="0;0.12;0.32;1" dur="2.5s" repeatCount="indefinite"
+                            calcMode="linear"/>
+                        <g transform="rotate(27)">
+                            <path d="M0 -2 C4.2 3 4.2 11 0 17 C-4.2 11 -4.2 3 0 -2 Z" fill="#d42a3d"/>
+                        </g>
                     </g>
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; -5 7; -20 34; -52 102" keyTimes="0;0.12;0.32;1" dur="2.85s" begin="0.9s" repeatCount="indefinite"/>
-                        <path transform="translate(0 14) rotate(-28)" d="M0 0 C3.1 3.5 3.1 8.8 0 13 C-3.1 8.8 -3.1 3.5 0 0 Z" fill="#c41f35"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.85s" begin="0.85s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate"
+                            values="0,0; -5,7; -20,34; -52,102"
+                            keyTimes="0;0.12;0.32;1" dur="2.85s" begin="0.85s" repeatCount="indefinite"
+                            calcMode="linear"/>
+                        <g transform="rotate(28)">
+                            <path d="M0 -1.5 C3.4 2.5 3.4 9 0 14 C-3.4 9 -3.4 2.5 0 -1.5 Z" fill="#c41f35"/>
+                        </g>
                     </g>
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.62;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate" values="0 0; -4 6; -18 30; -44 90" keyTimes="0;0.12;0.32;1" dur="2.55s" begin="1.6s" repeatCount="indefinite"/>
-                        <path transform="translate(0 14) rotate(-26)" d="M0 0 C2.7 3.1 2.7 7.8 0 11.5 C-2.7 7.8 -2.7 3.1 0 0 Z" fill="#e03346"/>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.55s" begin="1.55s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate"
+                            values="0,0; -4,6; -18,30; -44,90"
+                            keyTimes="0;0.12;0.32;1" dur="2.55s" begin="1.55s" repeatCount="indefinite"
+                            calcMode="linear"/>
+                        <g transform="rotate(26)">
+                            <path d="M0 -1 C3 2.2 3 8 0 12.5 C-3 8 -3 2.2 0 -1 Z" fill="#e03346"/>
+                        </g>
                     </g>
                 </g>
             </svg>
