@@ -389,43 +389,31 @@
                     <path d="M100 195 L100 420" fill="none" stroke="#fff8f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
                 </g>
 
-                <!-- Кровь: капли вниз-влево; ось капли вдоль траектории (острие сзади) -->
+                <!-- Кровь: animateMotion сам поворачивает каплю по касательной к кривой -->
                 <g class="blood-tip" transform="translate(100, 538)">
                     <path class="tip-bead" d="M0 0 C5.5 6 5.5 15 0 22 C-5.5 15 -5.5 6 0 0 Z" fill="url(#blood)"/>
 
-                    <!--
-                      Траектория ≈ (−48, +96) → угол от +X ≈ 117°.
-                      Капля «смотрит» в +Y (90°) → rotate(27), чтобы +Y совпало с полётом.
-                    -->
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.5s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate"
-                            values="0,0; -6,8; -22,36; -48,96"
-                            keyTimes="0;0.12;0.32;1" dur="2.5s" repeatCount="indefinite"
-                            calcMode="linear"/>
-                        <g transform="rotate(27)">
-                            <path d="M0 -2 C4.2 3 4.2 11 0 17 C-4.2 11 -4.2 3 0 -2 Z" fill="#d42a3d"/>
-                        </g>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.07;0.72;1" dur="2.5s" repeatCount="indefinite"/>
+                        <animateMotion path="M 0 13 C -5 21, -17 47, -48 109"
+                            rotate="auto" dur="2.5s" repeatCount="indefinite"
+                            calcMode="spline" keyTimes="0;1" keySplines="0.35 0 0.75 1"/>
+                        <!-- Острие слева остаётся сзади, округлая часть справа ведёт каплю -->
+                        <path d="M-10 0 C-5-4.2 1-4.6 5-2.6 C7-1.5 7 1.5 5 2.6 C1 4.6-5 4.2-10 0Z" fill="#d42a3d"/>
                     </g>
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.85s" begin="0.85s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate"
-                            values="0,0; -5,7; -20,34; -52,102"
-                            keyTimes="0;0.12;0.32;1" dur="2.85s" begin="0.85s" repeatCount="indefinite"
-                            calcMode="linear"/>
-                        <g transform="rotate(28)">
-                            <path d="M0 -1.5 C3.4 2.5 3.4 9 0 14 C-3.4 9 -3.4 2.5 0 -1.5 Z" fill="#c41f35"/>
-                        </g>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.07;0.72;1" dur="2.85s" begin="0.85s" repeatCount="indefinite"/>
+                        <animateMotion path="M 0 12 C -4 20, -16 45, -52 115"
+                            rotate="auto" dur="2.85s" begin="0.85s" repeatCount="indefinite"
+                            calcMode="spline" keyTimes="0;1" keySplines="0.35 0 0.75 1"/>
+                        <path d="M-8.5 0 C-4-3.5 1-3.8 4.2-2.2 C5.8-1.2 5.8 1.2 4.2 2.2 C1 3.8-4 3.5-8.5 0Z" fill="#c41f35"/>
                     </g>
                     <g opacity="0">
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.65;1" dur="2.55s" begin="1.55s" repeatCount="indefinite"/>
-                        <animateTransform attributeName="transform" type="translate"
-                            values="0,0; -4,6; -18,30; -44,90"
-                            keyTimes="0;0.12;0.32;1" dur="2.55s" begin="1.55s" repeatCount="indefinite"
-                            calcMode="linear"/>
-                        <g transform="rotate(26)">
-                            <path d="M0 -1 C3 2.2 3 8 0 12.5 C-3 8 -3 2.2 0 -1 Z" fill="#e03346"/>
-                        </g>
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.07;0.72;1" dur="2.55s" begin="1.55s" repeatCount="indefinite"/>
+                        <animateMotion path="M 0 11 C -4 18, -14 40, -44 101"
+                            rotate="auto" dur="2.55s" begin="1.55s" repeatCount="indefinite"
+                            calcMode="spline" keyTimes="0;1" keySplines="0.35 0 0.75 1"/>
+                        <path d="M-7.5 0 C-4-3 0.8-3.2 3.7-1.9 C5-1 5 1 3.7 1.9 C0.8 3.2-4 3-7.5 0Z" fill="#e03346"/>
                     </g>
                 </g>
             </svg>
